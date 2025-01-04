@@ -14,7 +14,9 @@ const PFARoutes = require('./routes/PFA');
 const internshipRoutes=require('./routes/internshipRouter');
 const Authrouter = require('./routes/auth');
 const teacherRoutes = require('./routes/teacherRoutes');
+const evaluationRoutes = require('./routes/evaluationRoutes');
 const cors = require('cors');
+const { scheduleNotifications } = require('./services/scheduler');
 
 
 // Middleware to parse JSON request bodies
@@ -66,7 +68,9 @@ app.use('/api/Period', periodRoutes);
 app.use('/api/PFA', PFARoutes);
 app.use('/api/internship',internshipRoutes)
 app.use('/api/teachers',teacherRoutes)
+app.use('/api/evaluations', evaluationRoutes);
 
+scheduleNotifications();
 
 server.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`);
